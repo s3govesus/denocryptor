@@ -11,9 +11,7 @@ export { OptionsEncryptPassword };
 function encryptPassword(
   hash: string, // the hash you're salting and then encrypting
   salt: string, // the salt hash that's going to be applied to the original hash, generally stored separately on the server for later uses
-  options: OptionsEncryptPassword = {
-    count: 3,
-  },
+  options = new OptionsEncryptPassword(),
 ): string {
   let result: string = ``;
 
@@ -35,11 +33,9 @@ export { OptionsHashValue };
 // accepts a value, converts it to a string, and then applies the SHA-512 hash to it
 function hashValue(
   value: any,
-  options: OptionsHashValue = {
-    count: 1,
-  },
+  options = new OptionsHashValue(),
 ): string {
-  let result: string = value;
+  let result: string = (value as string);
 
   // run `options.count` number of iterations of the hashing algorithm
   for (let i = 0; i < options.count; i += 1) {
@@ -62,12 +58,7 @@ export { OptionsMakeID };
 
 // generate a random pseudo-UUID string
 function makeID(
-  options: OptionsMakeID = {
-    version: 1,
-    origin: (Date.now() as unknown as string),
-    seed: (Date.now() as unknown as string),
-    isSecure: false,
-  },
+  options = new OptionsMakeID(),
 ): string {
   let result: string = ``;
 
@@ -139,12 +130,7 @@ export { OptionsMakeHash };
 
 // generates a random hexidecimal hash, where `size` is the number of random hexadecimal characters to generate
 function makeHash(
-  options: OptionsMakeHash = {
-    size: 128,
-    toLowerCase: true,
-    toUpperCase: false,
-    isSecure: false,
-  },
+  options = new OptionsMakeHash(),
 ): string {
   let result: string = ``;
 
@@ -201,10 +187,7 @@ export { OptionsMakeKey };
 
 // generate a random alphanumeric string
 function makeKey(
-  options: OptionsMakeKey = {
-    size: 20,
-    isComplex: false,
-  },
+  options = new OptionsMakeKey(),
 ): string {
   let result: string = ``;
 
