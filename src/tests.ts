@@ -1,67 +1,102 @@
-interface TestInterface {
-  testValue: string;
-}
-
-let test = { testValue: "x" };
-test.testValue = "poop";
-
-console.log(test.testValue);
-
-let z: TestInterface = test;
-console.log(z.testValue);
-
 import {
+  encryptPassword,
   hashValue,
-  OptionsHashValue,
-  saltHash,
-  makeKey,
-  makeHash,
   makeID,
+  makeHash,
+  makeKey,
+  saltHash,
+  toBoolean,
 } from "./denocryptor.ts";
 
-let x = Math.random();
+/******************************************************************************/
 
-console.log(x);
+function testEncryptPassword() {
+  let hash =
+    `d06ec4ed2e76e2c6c9e3dc3e1608735be0cbc0802ca5c2dac19bb492b8605708e3b8aff927d58a4c17fe9a7e6e3afcf3fc8c9e21791500ec0257b8fcca4c9d98`;
+  let salt =
+    `38537b935d7d0b98fe624ba268b6122b3b9b4d79fb0f714aecb1c55c7a5eb90eaba60f58f428c71117c036ccb7dfdfa80b002f99e96f3d0d36e64288a9b08fa9`;
 
-let n = hashValue("fart", { count: 3 });
-console.log(n);
+  let encryptedPassword = encryptPassword(hash, salt, {
+    count: 7, // how many times to run the hashing algorithm on the salted hash : high count = more secure
+  });
+  console.log(`testEncryptPassword : ${encryptedPassword}`);
+}
+testEncryptPassword();
 
-let a1 = `13579`;
-let b1 = `2468024680`;
+/******************************************************************************/
 
-let c1 = saltHash(a1, b1);
-console.log(c1);
+function testHashValue() {
+  let value = `you can hash pretty much any string or number`;
 
-let a2 = makeKey({
-  size: 32,
-  isComplex: false,
-});
-console.log(`a2 : ${a2}`);
+  let hashedValue = hashValue(value, {
+    count: 5, // how many times you want to run the hashing algorithm : higher count = more secure
+  });
+  console.log(`testHashValue : ${hashedValue}`);
+}
+testHashValue();
 
-let a3 = makeHash({
-  size: 24,
-  toLowerCase: true,
-  toUpperCase: false,
-  isSecure: false,
-});
-console.log(`a3 : ${a3}`);
+/******************************************************************************/
 
-let b3 = makeHash({
-  size: 24,
-  toLowerCase: true,
-  toUpperCase: false,
-  isSecure: true,
-});
-console.log(`b3 : ${b3}`);
+function testMakeID() {
+  let id = makeID({
+    version: 1, // not yet implemented
+    origin: ``, // not yet implemented
+    seed: ``, // not yet implemented
+    isSecure: true, // slower, but more secure random data generation
+  });
+  console.log(`testMakeID : ${id}`);
+}
+testMakeID();
 
-let a4 = makeID({
-  version: 1,
-  origin: ((Date.now() as unknown) as string),
-  seed: (Date.now() as number),
-  isSecure: true,
-});
-console.log(a4);
+/******************************************************************************/
 
-let k: number = 1337;
-let r = k as unknown as string;
-console.log(r);
+function testMakeHash() {
+  let randomData = makeHash({
+    size: 128, // how many characters to generate
+    toLowerCase: true, // produce results that consist of only lowercase hexadecimal characters (default)
+    toUpperCase: false, // produce results that consit of only uppercase hexadecimal characters
+    isSecure: false, // slower, but more secure random data generation
+  });
+  console.log(`testMakeHash : ${randomData}`);
+}
+testMakeHash();
+
+/******************************************************************************/
+
+function testMakeKey() {
+  let randomKey = makeKey({
+    size: 20,
+    isComplex: false, // whether or not to generate both uppercase and lowercase alphanumeric characters
+  });
+  console.log(`testMakeKey : ${randomKey}`);
+}
+testMakeKey();
+
+/******************************************************************************/
+
+function testSaltHash() {
+  let hash =
+    `d06ec4ed2e76e2c6c9e3dc3e1608735be0cbc0802ca5c2dac19bb492b8605708e3b8aff927d58a4c17fe9a7e6e3afcf3fc8c9e21791500ec0257b8fcca4c9d98`;
+  let salt =
+    `38537b935d7d0b98fe624ba268b6122b3b9b4d79fb0f714aecb1c55c7a5eb90eaba60f58f428c71117c036ccb7dfdfa80b002f99e96f3d0d36e64288a9b08fa9`;
+  let saltedHash = saltHash(hash, salt);
+  console.log(`testSaltHash : ${saltedHash}`);
+}
+testSaltHash();
+
+/******************************************************************************/
+
+function testToBoolean() {
+  let someNumber = 0;
+  let numberToBool = toBoolean(someNumber);
+  console.log(
+    `testToBoolean : typeof numberToBool : ${typeof numberToBool} | value numberToBool : ${numberToBool}`,
+  );
+
+  let someWord = `true`;
+  let wordToBool = toBoolean(someWord);
+  console.log(
+    `testToBoolean : typeof wordToBool : ${typeof wordToBool} | value wordToBool; : ${wordToBool}`,
+  );
+}
+testToBoolean();
