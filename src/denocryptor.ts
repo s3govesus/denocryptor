@@ -1,4 +1,4 @@
-import { sha512 } from "https://denopkg.com/chiefbiiko/sha512/mod.ts";
+import { sha512 } from "./sha512.ts";
 
 /******************************************************************************/
 
@@ -39,7 +39,7 @@ function hashValue(
 
   // run `options.count` number of iterations of the hashing algorithm
   for (let i = 0; i < options.count; i += 1) {
-    result = (sha512(result, "utf8", "hex") as string);
+    result = (sha512(result) as string);
   }
 
   return result;

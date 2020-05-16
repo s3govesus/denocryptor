@@ -6,6 +6,9 @@
 
 # CHANGELOG
 
+## 5 : sha512 implementation
+- directly implemented the SHA-512 encryption algorithm in '/sha512.ts'
+
 ## 4 : optimized makeKey()
 - made some minor optimizations to `makeKey()`
 
