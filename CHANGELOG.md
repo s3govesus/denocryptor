@@ -6,6 +6,9 @@
 
 # CHANGELOG
 
+## 4 : optimized makeKey()
+- made some minor optimizations to `makeKey()`
+
 ## 3 : options defaults
 - updated options parameters to assume defaults if no value is provided
 

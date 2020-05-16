@@ -222,24 +222,19 @@ function makeKey(
   }
 
   // calculate various values for use in determining a random value
-  let divisor = 0;
   let upperRange = 3844;
   if (options.isComplex === true) {
-    divisor = 62;
-    upperRange = 3844;
+    upperRange = 62;
   } else {
-    divisor = 36;
-    upperRange = 1296;
+    upperRange = 36;
   }
 
   // generate a random character and then append it to the `result` string
   const characters =
     `0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`;
   for (let i = 0; i < options.size; i += 1) {
-    let rando = Math.ceil(Math.random() * upperRange);
-    rando %= divisor;
-    const currentChar = characters[rando];
-    result += currentChar;
+    let rando = Math.floor(Math.random() * upperRange);
+    result += characters[rando];
   }
 
   return result;
@@ -280,7 +275,7 @@ export { saltHash };
 
 // converts a string or numeric value to a boolean true or false
 function toBoolean(
-  value: any,
+  value: number | string | boolean,
 ): boolean {
   if (typeof value === `number`) {
     if (value === 1) {
