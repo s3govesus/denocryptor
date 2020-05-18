@@ -3,7 +3,12 @@ import { sha512 } from "./sha512.ts";
 /******************************************************************************/
 
 class OptionsEncryptPassword {
-  count: number = 3; // number of times to apply the encryption algorithm to the result
+  count: number; // default : 3 // number of times to apply the encryption algorithm to the result
+  constructor(
+    count?: number,
+  ) {
+    this.count = count || 3;
+  }
 }
 export { OptionsEncryptPassword };
 
@@ -26,7 +31,12 @@ export { encryptPassword };
 /******************************************************************************/
 
 class OptionsHashValue {
-  count: number = 1; // how many times to apply the hashing algorithm to the 'value' string
+  count: number; // default : 1 // how many times to apply the hashing algorithm to the 'value' string
+  constructor(
+    count?: number,
+  ) {
+    this.count = count || 1;
+  }
 }
 export { OptionsHashValue };
 
@@ -49,10 +59,21 @@ export { hashValue };
 /******************************************************************************/
 
 class OptionsMakeID {
-  version: number = 1; // TODO implement this
-  origin: string | number = (Date.now() as unknown as string); // TODO implement this
-  seed: string | number = (Date.now() as unknown as string); // TODO implement this
-  isSecure: boolean = false;
+  version: number; // default : 1 // TODO implement this
+  origin: string | number; // default : Date.now() // TODO implement this
+  seed: string | number; // default : Date.now() // TODO implement this
+  isSecure: boolean; // default : false // whether or not to use the slower but more secure method of random data generation
+  constructor(
+    version?: number,
+    origin?: string | number,
+    seed?: string | number,
+    isSecure?: boolean,
+  ) {
+    this.version = version || 1;
+    this.origin = origin || (Date.now() as unknown as string);
+    this.seed = seed || (Date.now() as unknown as string);
+    this.isSecure = isSecure || false;
+  }
 }
 export { OptionsMakeID };
 
@@ -121,10 +142,21 @@ export { makeID };
 /******************************************************************************/
 
 class OptionsMakeHash {
-  size: number = 128; // how many random hexadecimal characters to generate
-  toLowerCase: boolean = true; // whether the result should be all lowercase letters and numbers
-  toUpperCase: boolean = false; // whether the result should be all uppercase letters and numbers
-  isSecure: boolean = false; // whether to generate the random hash using a slower, but more secure method
+  size: number; // default : 128 // how many random hexadecimal characters to generate
+  toLowerCase: boolean; // default : true // whether the result should be all lowercase letters and numbers
+  toUpperCase: boolean; // default : false // whether the result should be all uppercase letters and numbers
+  isSecure: boolean; // default : false // whether to generate the random hash using a slower, but more secure method
+  constructor(
+    size?: number,
+    toLowerCase?: boolean,
+    toUpperCase?: boolean,
+    isSecure?: false,
+  ) {
+    this.size = size || 128;
+    this.toLowerCase = toLowerCase || true;
+    this.toUpperCase = toUpperCase || false;
+    this.isSecure = isSecure || false;
+  }
 }
 export { OptionsMakeHash };
 
@@ -180,8 +212,15 @@ export { makeHash };
 /******************************************************************************/
 
 class OptionsMakeKey {
-  size: number = 20; // how many alphanumeric characters to generate
-  isComplex: boolean = false; // whether to use both uppercase and lowercase alphanumeric characters
+  size: number; // default : 20 // how many alphanumeric characters to generate
+  isComplex: boolean; // default : false // whether to use both uppercase and lowercase alphanumeric characters
+  constructor(
+    size?: number,
+    isComplex?: boolean,
+  ) {
+    this.size = size || 20;
+    this.isComplex = isComplex || false;
+  }
 }
 export { OptionsMakeKey };
 
