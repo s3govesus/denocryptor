@@ -1,6 +1,6 @@
 ## TODO
 
-- implement version, seed, and origin in `makeID()`
+- implement `version`, `seed`, and `origin` in `makeID()`
 
 ---
 
