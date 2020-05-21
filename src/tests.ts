@@ -6,7 +6,7 @@ import {
   makeKey,
   saltHash,
   toBoolean,
-} from "./denocryptor.ts";
+} from "./mod.ts";
 
 /******************************************************************************/
 

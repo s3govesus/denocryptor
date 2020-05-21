@@ -6,6 +6,9 @@
 
 ## CHANGELOG
 
+### 7 : renamed entry point
+- renamed the project entrypoint, '/denocryptor.ts', to '/mod.ts'
+
 ### 6 : defaults fix
 - fixed options to utilize a constructor for the class that loads a default value for each property if no value is provided
 
